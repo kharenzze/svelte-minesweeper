@@ -11,7 +11,7 @@
 
 <main>
     <h1>Hello {name}!</h1>
-    <table>
+    <table class="table">
         <tbody>
         {#each matrix as row}
             <tr>
@@ -39,9 +39,8 @@
         font-weight: 100;
     }
 
-    @media (min-width: 640px) {
-        main {
-            max-width: none;
-        }
+    .table {
+        border-spacing: 0;
     }
+
 </style>
