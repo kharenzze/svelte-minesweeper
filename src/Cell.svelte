@@ -1,8 +1,9 @@
 <script lang="ts">
+    let number = 1
 </script>
 
-<div class="container">
-    1
+<div class="{`container number-${number}`}">
+    {number}
 </div>
 
 <style>
