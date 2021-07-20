@@ -1,5 +1,5 @@
 <script lang="ts">
-    let number = 1
+    export let number: Number = 1
 </script>
 
 <div class="{`container number-${number}`}">
@@ -11,7 +11,7 @@
         --cell-size: 32px;
     }
     .container {
-        color: blue;
+        color: black;
         height: var(--cell-size);
         width: var(--cell-size);
         background-color: #999999;
@@ -22,4 +22,9 @@
         font-weight: bolder;
         box-sizing: border-box;
     }
+
+    .number-1 {
+        color: blue;
+    }
+
 </style>
