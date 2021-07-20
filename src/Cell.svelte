@@ -2,11 +2,23 @@
 </script>
 
 <div class="container">
-    hi
+    1
 </div>
 
 <style>
+    :root {
+        --cell-size: 32px;
+    }
     .container {
-        color: red;
+        color: blue;
+        height: var(--cell-size);
+        width: var(--cell-size);
+        background-color: #999999;
+        border: grey solid 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bolder;
+        box-sizing: border-box;
     }
 </style>
