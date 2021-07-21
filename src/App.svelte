@@ -4,16 +4,23 @@
 
   export let name: string
   const  matrix = _.map(_.range(9), () => _.range(9))
+  const onClick = (x, y) => {
+    console.log(x, y)
+  }
 </script>
 
 <main>
     <h1>Hello {name}!</h1>
     <table class="table">
         <tbody>
-        {#each matrix as row}
+        {#each matrix as row, y}
             <tr>
-                {#each row as num}
-                    <Cell number="{num}"/>
+                {#each row as num, x}
+                    <Cell number="{num}"
+                          x="{x}"
+                          y="{y}"
+                          onClick="{onClick}"
+                    />
                 {/each}
             </tr>
         {/each}

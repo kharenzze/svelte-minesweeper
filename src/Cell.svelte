@@ -1,8 +1,16 @@
 <script lang="ts">
     export let number: Number = 1
+    export let y: Number
+    export let x: Number
+    export let onClick: (x: Number, y: Number) => void
+    const localClick = () => {
+      onClick(x, y)
+    }
 </script>
 
-<td class="{`container number-${number}`}">
+<td class="{`container number-${number}`}"
+    on:click={localClick}
+>
     {number}
 </td>
 
