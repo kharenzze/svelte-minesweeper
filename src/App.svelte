@@ -1,9 +1,9 @@
 <script lang="ts">
   import Cell from './Cell.svelte'
-  import _ from 'lodash'
+  import { minilodash as _ } from './MiniLodash'
 
   export let name: string
-  const  matrix = _.map(_.range(9), () => _.range(9))
+  const  matrix = _.range(9).map(() => _.range(9))
   const onClick = (x, y) => {
     console.log(x, y)
   }
