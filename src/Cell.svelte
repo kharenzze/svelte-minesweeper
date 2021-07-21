@@ -14,7 +14,7 @@
         color: black;
         height: var(--cell-size);
         width: var(--cell-size);
-        background-color: #999999;
+        background-color: darkgrey;
         border: grey solid 1px;
         font-weight: bolder;
         box-sizing: border-box;
