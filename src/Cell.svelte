@@ -26,6 +26,8 @@
     .container {
         color: black;
         height: var(--cell-size);
+        min-width: 32px;
+        min-height: 32px;
         width: var(--cell-size);
         background-color: darkgrey;
         border: grey solid 1px;
