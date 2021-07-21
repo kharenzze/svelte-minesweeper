@@ -17,8 +17,8 @@
         <tbody>
         {#each game.matrix as row}
             <tr>
-                {#each row as data}
-                    <Cell data="{data}"
+                {#each row as cellData}
+                    <Cell data="{cellData}"
                           onClick="{onClick}"
                     />
                 {/each}
