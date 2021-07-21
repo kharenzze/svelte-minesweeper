@@ -1,12 +1,9 @@
 <script lang="ts">
   import Cell from './Cell.svelte'
+  import _ from 'lodash'
 
   export let name: string
-  let matrix = [
-    [1, 2, 3],
-    [1, 2, 3],
-    [1, 2, 3],
-  ]
+  const  matrix = _.map(_.range(9), () => _.range(9))
 </script>
 
 <main>
