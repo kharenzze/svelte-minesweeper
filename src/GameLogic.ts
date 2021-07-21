@@ -11,9 +11,22 @@ export interface CellData {
 const emptyCellData = (p: Point):CellData => ({
   bomb: false,
   bombsAround: 0,
-  visible: false,
+  visible: true,
   p
 })
+
+export const CellHelper = {
+  getText: (c: CellData): string => {
+    if (!c.visible) {
+      return ''
+    } else if (c.bomb) {
+      return '💣'
+    } else if (c.bombsAround > 0) {
+      return c.bombsAround + ''
+    }
+    return ''
+  }
+}
 
 export class Playgroung {
   constructor(dimensions: Point, nBombs: number) {

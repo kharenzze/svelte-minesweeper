@@ -1,12 +1,15 @@
 <script lang="ts">
   import type { CellData } from "./GameLogic"
+  import { CellHelper } from "./GameLogic"
 
   export let data: CellData
   export let onClick: (cell:CellData) => void
   const localClick = () => {
     onClick(data)
+    data = data
   }
-  const text = 1
+
+  $: text = CellHelper.getText(data)
 </script>
 
 <td class="{`container number-${text}`}"

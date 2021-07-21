@@ -5,9 +5,11 @@
   import { Point } from "./Point"
 
   export let name: string
-  const game = new Playgroung(Point(20, 20), 40)
+  let game = new Playgroung(Point(20, 20), 40)
   const onClick = (cell: CellData) => {
+    cell.bombsAround = 3
     console.log(cell)
+    game = game
   }
 </script>
 
