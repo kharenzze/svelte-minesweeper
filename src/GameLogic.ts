@@ -5,12 +5,14 @@ interface CellData {
   bomb: boolean,
   bombsAround: number,
   visible: boolean,
+  p: Point,
 }
 
-const emptyCellData = ():CellData => ({
+const emptyCellData = (p: Point):CellData => ({
   bomb: false,
   bombsAround: 0,
-  visible: false
+  visible: false,
+  p
 })
 
 export class Playgroung {
@@ -32,7 +34,7 @@ export class Playgroung {
   private buildMatrix() {
     this.matrix = _.range(this.dimensions.y)
       .map(i => _.range(this.dimensions.x)
-        .map(j => emptyCellData())
+        .map(j => emptyCellData(Point(j, i)))
       )
   }
 
