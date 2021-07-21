@@ -42,6 +42,7 @@ export class Playgroung {
     this.dimensions = dimensions
     this.bombs = nBombs
     this.buildMatrix()
+    this.initBombs()
   }
 
   private buildMatrix() {
@@ -49,6 +50,10 @@ export class Playgroung {
       .map(i => _.range(this.dimensions.x)
         .map(j => emptyCellData(Point(j, i)))
       )
+  }
+
+  private initBombs() {
+    
   }
 
   dimensions: Point
