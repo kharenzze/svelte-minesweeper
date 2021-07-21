@@ -1,23 +1,25 @@
 <script lang="ts">
-    export let number: Number = 1
-    export let y: Number
-    export let x: Number
-    export let onClick: (x: Number, y: Number) => void
-    const localClick = () => {
-      onClick(x, y)
-    }
+  import type { CellData } from "./GameLogic"
+
+  export let data: CellData
+  export let onClick: (cell:CellData) => void
+  const localClick = () => {
+    onClick(data)
+  }
+  const text = 1
 </script>
 
-<td class="{`container number-${number}`}"
+<td class="{`container number-${text}`}"
     on:click={localClick}
 >
-    {number}
+    {text}
 </td>
 
 <style>
     :root {
         --cell-size: 32px;
     }
+
     .container {
         color: black;
         height: var(--cell-size);

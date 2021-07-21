@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { Playgroung } from "./GameLogic"
+  import type { CellData } from "./GameLogic"
   import Cell from './Cell.svelte'
-  import { minilodash as _ } from './MiniLodash'
+  import { Point } from "./Point"
 
   export let name: string
-  const  matrix = _.range(9).map(() => _.range(9))
-  const onClick = (x, y) => {
-    console.log(x, y)
+  const game = new Playgroung(Point(20, 20), 40)
+  const onClick = (cell: CellData) => {
+    console.log(cell)
   }
 </script>
 
@@ -13,12 +15,10 @@
     <h1>Hello {name}!</h1>
     <table class="table">
         <tbody>
-        {#each matrix as row, y}
+        {#each game.matrix as row}
             <tr>
-                {#each row as num, x}
-                    <Cell number="{num}"
-                          x="{x}"
-                          y="{y}"
+                {#each row as data}
+                    <Cell data="{data}"
                           onClick="{onClick}"
                     />
                 {/each}

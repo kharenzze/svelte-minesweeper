@@ -1,7 +1,7 @@
 import { Point, PointHelper } from "./Point"
 import { minilodash as _ } from "./MiniLodash"
 
-interface CellData {
+export interface CellData {
   bomb: boolean,
   bombsAround: number,
   visible: boolean,
