@@ -25,4 +25,32 @@
         color: blue;
     }
 
+    .number-2 {
+        color: green;
+    }
+
+    .number-3 {
+        color: red;
+    }
+
+    .number-4 {
+        color: purple;
+    }
+
+    .number-5 {
+        color: maroon;
+    }
+
+    .number-6 {
+        color: turquoise;
+    }
+
+    .number-7 {
+        color: black;
+    }
+
+    .number-8 {
+        color: grey;
+    }
+
 </style>
