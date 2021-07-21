@@ -53,7 +53,7 @@ export class Playgroung {
   }
 
   private initBombs() {
-    
+
   }
 
   dimensions: Point
