@@ -1,12 +1,13 @@
 import { Point, PointHelper } from "./Point"
+import { minilodash as _ } from "./MiniLodash"
 
-export interface CellData {
+interface CellData {
   bomb: boolean,
   bombsAround: number,
-  visible: boolean
+  visible: boolean,
 }
 
-const CellData = ():CellData => ({
+const emptyCellData = ():CellData => ({
   bomb: false,
   bombsAround: 0,
   visible: false
@@ -19,16 +20,23 @@ export class Playgroung {
     }
     if (nBombs < 0) {
       throw new Error("Number of bombs must be positive")
-    } else if (nBombs < (PointHelper.area(dimensions) / 3)) {
+    } else if (nBombs >= (PointHelper.area(dimensions) / 3)) {
       throw new Error("Too many bombs")
     }
 
     this.dimensions = dimensions
     this.bombs = nBombs
+    this.buildMatrix()
+  }
+
+  private buildMatrix() {
+    this.matrix = _.range(this.dimensions.y)
+      .map(i => _.range(this.dimensions.x)
+        .map(j => emptyCellData())
+      )
   }
 
   dimensions: Point
   bombs: number
+  matrix: Array<Array<CellData>>
 }
-
-const a = new Playgroung(Point(20, 20), 40)
