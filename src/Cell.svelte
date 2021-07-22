@@ -16,6 +16,9 @@
     on:click={localClick}
 >
     {text}
+    <div class="bubble" class:hidden={data.explored}>
+
+    </div>
 </td>
 
 <style>
@@ -34,6 +37,24 @@
         font-weight: bolder;
         box-sizing: border-box;
         margin: 0;
+        position: relative;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .bubble {
+        z-index: 1;
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        inset: 0;
+        border-bottom: #333333 solid 3px;
+        border-right: #333333 solid 3px;
+        border-left: #dddddd solid 3px;
+        border-top: #dddddd solid 3px;
+        box-sizing: border-box;
     }
 
     .number-1 {

@@ -4,20 +4,22 @@ import { minilodash as _ } from "./MiniLodash"
 export interface CellData {
   bomb: boolean,
   bombsAround: number,
-  visible: boolean,
+  explored: boolean,
+  flagged: false,
   p: Point,
 }
 
 const emptyCellData = (p: Point):CellData => ({
   bomb: false,
   bombsAround: 0,
-  visible: false,
+  explored: false,
+  flagged: false,
   p
 })
 
 export const CellHelper = {
   getText: (c: CellData): string => {
-    if (!c.visible) {
+    if (!c.explored) {
       return ''
     } else if (c.bomb) {
       return '💣'
