@@ -19,7 +19,9 @@ const emptyCellData = (p: Point):CellData => ({
 
 export const CellHelper = {
   getText: (c: CellData): string => {
-    if (!c.explored) {
+    if (c.flagged) {
+      return '🚩️'
+    }if (!c.explored) {
       return ''
     } else if (c.bomb) {
       return '💣'
