@@ -11,7 +11,7 @@ export interface CellData {
 const emptyCellData = (p: Point):CellData => ({
   bomb: false,
   bombsAround: 0,
-  visible: true,
+  visible: false,
   p
 })
 
