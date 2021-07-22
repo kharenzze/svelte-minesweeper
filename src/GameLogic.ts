@@ -36,6 +36,10 @@ export const CellHelper = {
 }
 
 export class Playgroung {
+  dimensions: Point
+  bombs: number
+  matrix: Array<Array<CellData>>
+  nCells: number
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
       throw new Error("Dimensions must be positive")
@@ -47,6 +51,7 @@ export class Playgroung {
     }
 
     this.dimensions = dimensions
+    this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
     this.buildMatrix()
     this.initBombs()
@@ -60,16 +65,21 @@ export class Playgroung {
       )
   }
 
+  private intToPoint = (i:number): Point => {
+    const local = i % this.nCells
+    return {
+      y: Math.floor(local / this.dimensions.x),
+      x: local % this.dimensions.x
+    }
+  }
+
   private initBombs() {
     let pending = this.bombs
     let counter = 0
-    const nCells = PointHelper.area(this.dimensions)
     while (pending !== 0) {
       counter += _.random(97)
-      const local = counter % nCells
-      const y = Math.floor(local / this.dimensions.x)
-      const x = local % this.dimensions.x
-      const cell = this.matrix[y][x]
+      const p = this.intToPoint(counter)
+      const cell = this.matrix[p.y][p.x]
       if (!cell.bomb) {
         cell.bomb = true
         pending -= 1
@@ -100,6 +110,10 @@ export class Playgroung {
     }
   }
 
+  public quickStart = () => {
+
+  }
+
   private autoDiscoverFrom = (cell: CellData) => {
     PointHelper.getPointsAround(cell.p)
       .filter(this.inBounds)
@@ -116,7 +130,4 @@ export class Playgroung {
 
   private getCell = (p: Point) => this.matrix[p.y][p.x]
 
-  dimensions: Point
-  bombs: number
-  matrix: Array<Array<CellData>>
 }
