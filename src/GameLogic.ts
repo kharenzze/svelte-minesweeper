@@ -81,11 +81,17 @@ export class Playgroung {
     const isValid = (p: Point) => inBounds(p) && cellAtPointIsBomb(p)
     this.matrix.forEach(row => {
       row.forEach(cell => {
-        cell.bombsAround = PointHelper.getPointsAround(cell.p)
-          .filter(isValid)
-          .length
+        if (!cell.bomb) {
+          cell.bombsAround = PointHelper.getPointsAround(cell.p)
+            .filter(isValid)
+            .length
+        }
       })
     })
+  }
+
+  public discover(cell: CellData) {
+    cell.explored = true
   }
 
   private getCell = (p: Point) => this.matrix[p.y][p.x]

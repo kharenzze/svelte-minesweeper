@@ -7,7 +7,7 @@
   export let name: string
   let game = new Playgroung(Point(30, 16), 99)
   const onClick = (cell: CellData) => {
-    cell.explored = true
+    game.discover(cell)
     game = game
   }
 </script>
