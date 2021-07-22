@@ -5,17 +5,12 @@ export interface Point {
 
 export const Point = (x: number, y: number): Point => ({x, y})
 
-const getAroundBuilder = (diff: Array<number>) => (p: Point): Array<Point> => {
-  const points = new Array(9)
-  diff.forEach(i => {
-    diff.forEach(j => {
-      const q = Point(i, j)
-      if (!PointHelper.isZero(q))
-        points.push(PointHelper.add(p, q))
-    })
-  })
-  return points
-}
+const ADJACENT = [
+  Point(1, 0),
+  Point(-1, 0),
+  Point(0, 1),
+  Point(0, -1),
+]
 
 export const PointHelper = {
   isPositive: (p: Point) =>
@@ -25,9 +20,21 @@ export const PointHelper = {
 
   area: (p: Point) => p.x * p.y,
 
-  getPointsAround: getAroundBuilder([-1, 0, 1]),
+  getPointsAround: (p: Point): Array<Point> => {
+    const diff = [-1, 0, 1]
+    const points = new Array(9)
+    diff.forEach(i => {
+      diff.forEach(j => {
+        const q = Point(i, j)
+        if (!PointHelper.isZero(q))
+          points.push(PointHelper.add(p, q))
+      })
+    })
+    return points
+  },
 
-  getPointsAdjacent: getAroundBuilder([-1, 1]),
+  getPointsAdjacent: (p: Point) =>
+    ADJACENT.map(q => PointHelper.add(p, q)),
 
   add: (p: Point, q: Point): Point => Point(p.x + q.x, p.y + q.y),
 
