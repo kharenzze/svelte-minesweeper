@@ -10,10 +10,24 @@
     game.discover(cell)
     game = game
   }
+  const onClickStart = () => {
+    game.quickStart()
+    game = game
+  }
 </script>
 
 <main>
-    <h1>Hello {name}!</h1>
+    <h1>
+        <span>
+            Hello {name}!
+            <button class="start"
+                    class:hidden={game.started}
+                    on:click={onClickStart}
+            >
+                Start
+            </button>
+        </span>
+    </h1>
     <div class="app">
         <table class="table">
             <tbody>
@@ -45,6 +59,17 @@
         font-weight: 100;
     }
 
+    h1 > span {
+        position: relative;
+    }
+
+    button.start {
+        position: absolute;
+        z-index: 1;
+        right: -100px;
+        font-size: medium;
+    }
+
     .app {
         display: flex;
         flex-direction: row;
@@ -55,6 +80,10 @@
 
     .table {
         border-spacing: 0;
+    }
+
+    .hidden {
+        display: none;
     }
 
 </style>
