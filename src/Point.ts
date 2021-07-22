@@ -33,7 +33,7 @@ export const PointHelper = {
     return points
   },
 
-  getPointsAdjacent: (p: Point) =>
+  getAdjacentPoints: (p: Point) =>
     ADJACENT.map(q => PointHelper.add(p, q)),
 
   add: (p: Point, q: Point): Point => Point(p.x + q.x, p.y + q.y),
