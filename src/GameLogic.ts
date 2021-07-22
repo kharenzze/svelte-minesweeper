@@ -9,7 +9,7 @@ export interface CellData {
   p: Point,
 }
 
-const emptyCellData = (p: Point):CellData => ({
+const emptyCellData = (p: Point): CellData => ({
   bomb: false,
   bombsAround: 0,
   explored: false,
@@ -21,7 +21,8 @@ export const CellHelper = {
   getText: (c: CellData): string => {
     if (c.flagged) {
       return '🚩️'
-    } if (!c.explored) {
+    }
+    if (!c.explored) {
       return ''
     } else if (c.bomb) {
       return '💣'
@@ -47,6 +48,7 @@ export class Playgroung {
     this.bombs = nBombs
     this.buildMatrix()
     this.initBombs()
+    this.populateNumbers()
   }
 
   private buildMatrix() {
@@ -72,6 +74,21 @@ export class Playgroung {
       }
     }
   }
+
+  private populateNumbers() {
+    const inBounds = (p: Point) => PointHelper.isInBounds(p, this.dimensions)
+    const cellAtPointIsBomb = (p: Point) => this.getCell(p).bomb
+    const isValid = (p: Point) => inBounds(p) && cellAtPointIsBomb(p)
+    this.matrix.forEach(row => {
+      row.forEach(cell => {
+        cell.bombsAround = PointHelper.getPointsAround(cell.p)
+          .filter(isValid)
+          .length
+      })
+    })
+  }
+
+  private getCell = (p: Point) => this.matrix[p.y][p.x]
 
   dimensions: Point
   bombs: number
