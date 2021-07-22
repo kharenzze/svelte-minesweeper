@@ -9,8 +9,8 @@ const abs = (i: number) => i < 0 ? -i : i
 
 const ADJACENT = [
   Point(1, 0),
-  Point(-1, 0),
   Point(0, 1),
+  Point(-1, 0),
   Point(0, -1),
 ]
 
