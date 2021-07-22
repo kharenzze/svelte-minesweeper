@@ -40,6 +40,8 @@ export class Playgroung {
   bombs: number
   matrix: Array<Array<CellData>>
   nCells: number
+  started: boolean
+
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
       throw new Error("Dimensions must be positive")
@@ -53,6 +55,7 @@ export class Playgroung {
     this.dimensions = dimensions
     this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
+    this.started = false
     this.buildMatrix()
     this.initBombs()
     this.populateNumbers()
@@ -104,6 +107,7 @@ export class Playgroung {
   }
 
   public discover(cell: CellData) {
+    this.started = true
     cell.explored = true
     if (isSafe(cell) && cell.bombsAround === 0) {
       this.autoDiscoverFrom(cell)
@@ -111,7 +115,18 @@ export class Playgroung {
   }
 
   public quickStart = () => {
-
+    let count = _.random(this.nCells)
+    let finding = true
+    while (finding) {
+      const p = this.intToPoint(count)
+      const cell = this.getCell(p)
+      if (isSafe(cell) && cell.bombsAround === 0) {
+        this.discover(cell)
+        finding = false
+      } else {
+        count += 1
+      }
+    }
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
