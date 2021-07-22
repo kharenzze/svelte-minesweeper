@@ -101,10 +101,9 @@ export class Playgroung {
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
-    const adjacentCells = PointHelper.getAdjacentPoints(cell.p)
+    const adjacentCells = PointHelper.getPointsAround(cell.p)
       .filter(this.inBounds)
       .map(p => this.getCell(p))
-    console.log(adjacentCells)
     adjacentCells.forEach(c => {
       if (!c.explored && isSafe(c)) {
         c.explored = true
