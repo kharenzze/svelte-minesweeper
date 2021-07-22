@@ -101,17 +101,17 @@ export class Playgroung {
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
-    const adjacentCells = PointHelper.getPointsAround(cell.p)
+    PointHelper.getPointsAround(cell.p)
       .filter(this.inBounds)
       .map(p => this.getCell(p))
-    adjacentCells.forEach(c => {
-      if (!c.explored && isSafe(c)) {
-        c.explored = true
-        if (c.bombsAround === 0) {
-          this.autoDiscoverFrom(c)
+      .forEach(c => {
+        if (!c.explored && isSafe(c)) {
+          c.explored = true
+          if (c.bombsAround === 0) {
+            this.autoDiscoverFrom(c)
+          }
         }
-      }
-    })
+      })
   }
 
   private getCell = (p: Point) => this.matrix[p.y][p.x]
