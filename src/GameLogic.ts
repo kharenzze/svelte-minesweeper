@@ -53,7 +53,20 @@ export class Playgroung {
   }
 
   private initBombs() {
-
+    let pending = this.bombs
+    let counter = 0
+    const nCells = PointHelper.area(this.dimensions)
+    while (pending !== 0) {
+      counter += _.random(97)
+      const local = counter % nCells
+      const y = Math.floor(local / this.dimensions.x)
+      const x = local % this.dimensions.x
+      const cell = this.matrix[y][x]
+      if (!cell.bomb) {
+        cell.bomb = true
+        pending -= 1
+      }
+    }
   }
 
   dimensions: Point
