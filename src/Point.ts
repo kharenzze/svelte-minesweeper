@@ -3,6 +3,10 @@ export interface Point {
   y: number,
 }
 
+export interface BoundedPoint extends Point {
+  bounds: Point
+}
+
 export const Point = (x: number, y: number): Point => ({x, y})
 
 export const PointHelper = {
