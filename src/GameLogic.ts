@@ -21,7 +21,7 @@ export const CellHelper = {
   getText: (c: CellData): string => {
     if (c.flagged) {
       return '🚩️'
-    }if (!c.explored) {
+    } if (!c.explored) {
       return ''
     } else if (c.bomb) {
       return '💣'
