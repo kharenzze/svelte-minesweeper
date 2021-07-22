@@ -30,4 +30,7 @@ export const PointHelper = {
   getPointsAdjacent: getAroundBuilder([-1, 1]),
 
   add: (p: Point, q: Point): Point => Point(p.x + q.x, p.y + q.y),
+
+  isInBounds: (p: Point, bound: Point) =>
+    PointHelper.isPositive(p) && p.x < bound.x && p.y < bound.y,
 }
