@@ -43,6 +43,7 @@ export class Playgroung {
   matrix: Array<Array<CellData>>
   nCells: number
   started: boolean
+  gameOver: boolean
 
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
@@ -58,6 +59,7 @@ export class Playgroung {
     this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
     this.started = false
+    this.gameOver = false
     this.buildMatrix()
     this.initBombs()
     this.populateNumbers()
@@ -109,10 +111,14 @@ export class Playgroung {
   }
 
   public discover(cell: CellData) {
+    if (this.gameOver) {
+      return
+    }
     this.started = true
     cell.explored = true
     if (cell.bomb) {
       cell.explode = true
+      this.gameOver = true
     } else if (isSafe(cell) && cell.bombsAround === 0) {
       this.autoDiscoverFrom(cell)
     }
