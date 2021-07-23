@@ -15,7 +15,11 @@
     game = game
   }
   const onRightClick = (cell:CellData) => {
-    game.toggleFlag(cell)
+    if (cell.explored) {
+      //highlight
+    } else {
+      game.toggleFlag(cell)
+    }
     game = game
   }
 </script>
