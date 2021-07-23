@@ -148,4 +148,17 @@ export class Playgroung {
   public toggleFlag = (cell: CellData) => {
     cell.flagged = !cell.flagged
   }
+
+  public exploreAround = (cell: CellData) => {
+    if (cell.explored && cell.bombsAround) {
+      PointHelper.getPointsAround(cell.p)
+        .filter(this.inBounds)
+        .map(p => this.getCell(p))
+        .forEach(c => {
+          if (!c.explored && !c.flagged) {
+            this.discover(c)
+          }
+        })
+    }
+  }
 }

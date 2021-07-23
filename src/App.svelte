@@ -23,9 +23,7 @@
     game = game
   }
   const onDoubleClick = (cell:CellData) => {
-    if (cell.explored) {
-      console.log('here')
-    }
+    game.exploreAround(cell)
     game = game
   }
 </script>
