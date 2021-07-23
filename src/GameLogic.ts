@@ -111,6 +111,9 @@ export class Playgroung {
   public discover(cell: CellData) {
     this.started = true
     cell.explored = true
+    if (cell.bomb) {
+      cell.explode = true
+    }
     if (isSafe(cell) && cell.bombsAround === 0) {
       this.autoDiscoverFrom(cell)
     }
