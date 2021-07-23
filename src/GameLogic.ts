@@ -5,7 +5,7 @@ export interface CellData {
   bomb: boolean,
   bombsAround: number,
   explored: boolean,
-  flagged: false,
+  flagged: boolean,
   p: Point,
 }
 
