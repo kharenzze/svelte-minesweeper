@@ -26,20 +26,20 @@
     game.exploreAround(cell)
     game = game
   }
+  $: face = game.gameOver ? '😭' : '😃'
 </script>
 
 <main>
-    <h1>
-        <span>
-            Hello {name}!
-            <button class="start"
-                    class:hidden={game.started}
-                    on:click={onClickStart}
-            >
-                Start
-            </button>
-        </span>
-    </h1>
+    <div class="row">
+        <h1>Hello {name}!</h1>
+        <button class="start"
+                class:hidden={game.started}
+                on:click={onClickStart}
+        >
+            Start
+        </button>
+        <span class="face" class:hidden={!game.started}>{face}</span>
+    </div>
     <div class="app">
         <table class="table">
             <tbody>
@@ -78,10 +78,8 @@
     }
 
     button.start {
-        position: absolute;
-        z-index: 1;
-        right: -100px;
         font-size: medium;
+        margin: 0 12px;
     }
 
     .app {
@@ -98,6 +96,18 @@
 
     .hidden {
         display: none;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .face {
+        font-size: 30px;
+        margin: 0 12px;
     }
 
 </style>
