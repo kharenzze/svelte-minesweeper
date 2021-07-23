@@ -155,12 +155,15 @@ export class Playgroung {
 
   public exploreAround = (cell: CellData) => {
     if (cell.explored && cell.bombsAround) {
-      this.getCellsAround(cell)
-        .forEach(c => {
+      const cells = this.getCellsAround(cell)
+      const flagsAround = _.sumBy(cells, c => c.flagged ? 1 : 0)
+      if (flagsAround === cell.bombsAround) {
+        cells.forEach(c => {
           if (!c.explored && !c.flagged) {
             this.discover(c)
           }
         })
+      }
     }
   }
 }
