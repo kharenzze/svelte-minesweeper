@@ -23,6 +23,7 @@
 </script>
 
 <td class="{`container number-${text}`}"
+    class:explosion={data.explode}
     on:click={localClick}
     on:dblclick={localDoubleClick}
     on:contextmenu={localRightClick}
@@ -55,6 +56,10 @@
 
     .hidden {
         display: none;
+    }
+
+    .explosion {
+        background: red;
     }
 
     .bubble {
