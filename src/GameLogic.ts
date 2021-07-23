@@ -145,4 +145,7 @@ export class Playgroung {
 
   private getCell = (p: Point) => this.matrix[p.y][p.x]
 
+  public toggleFlag = (cell: CellData) => {
+    cell.flagged = !cell.flagged
+  }
 }

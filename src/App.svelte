@@ -15,7 +15,7 @@
     game = game
   }
   const onRightClick = (cell:CellData) => {
-    cell.flagged = !cell.flagged
+    game.toggleFlag(cell)
     game = game
   }
 </script>
