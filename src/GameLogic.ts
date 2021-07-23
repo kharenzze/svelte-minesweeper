@@ -68,7 +68,7 @@ export class Playgroung {
       )
   }
 
-  private intToPoint = (i:number): Point => {
+  private intToPoint = (i: number): Point => {
     const local = i % this.nCells
     return {
       y: Math.floor(local / this.dimensions.x),
@@ -130,9 +130,7 @@ export class Playgroung {
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
-    PointHelper.getPointsAround(cell.p)
-      .filter(this.inBounds)
-      .map(p => this.getCell(p))
+    this.getCellsAround(cell)
       .forEach(c => {
         if (!c.explored && isSafe(c)) {
           c.explored = true
@@ -149,11 +147,15 @@ export class Playgroung {
     cell.flagged = !cell.flagged
   }
 
+  private getCellsAround = (cell: CellData) =>
+    PointHelper.getPointsAround(cell.p)
+      .filter(this.inBounds)
+      .map(p => this.getCell(p))
+
+
   public exploreAround = (cell: CellData) => {
     if (cell.explored && cell.bombsAround) {
-      PointHelper.getPointsAround(cell.p)
-        .filter(this.inBounds)
-        .map(p => this.getCell(p))
+      this.getCellsAround(cell)
         .forEach(c => {
           if (!c.explored && !c.flagged) {
             this.discover(c)
