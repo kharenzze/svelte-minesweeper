@@ -44,6 +44,7 @@
         box-sizing: border-box;
         margin: 0;
         position: relative;
+        user-select: none;
     }
 
     .hidden {
