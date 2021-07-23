@@ -22,6 +22,12 @@
     }
     game = game
   }
+  const onDoubleClick = (cell:CellData) => {
+    if (cell.explored) {
+      console.log('here')
+    }
+    game = game
+  }
 </script>
 
 <main>
@@ -30,7 +36,7 @@
             Hello {name}!
             <button class="start"
                     class:hidden={game.started}
-                    on:click={onClickStart      }
+                    on:click={onClickStart}
             >
                 Start
             </button>
@@ -45,6 +51,7 @@
                         <Cell data="{cellData}"
                               onClick="{onClick}"
                               onRightClick="{onRightClick}"
+                              onDoubleClick="{onDoubleClick}"
                         />
                     {/each}
                 </tr>

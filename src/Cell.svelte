@@ -5,6 +5,7 @@
   export let data: CellData
   export let onClick: (cell:CellData) => void
   export let onRightClick: (cell:CellData) => void
+  export let onDoubleClick: (cell:CellData) => void
   const localClick = () => {
     onClick(data)
     data = data
@@ -14,11 +15,16 @@
     onRightClick(data)
   }
 
+  const localDoubleClick = () => {
+    onDoubleClick(data)
+  }
+
   $: text = CellHelper.getText(data)
 </script>
 
 <td class="{`container number-${text}`}"
     on:click={localClick}
+    on:dblclick={localDoubleClick}
     on:contextmenu={localRightClick}
 >
     {text}
