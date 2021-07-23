@@ -4,9 +4,14 @@
 
   export let data: CellData
   export let onClick: (cell:CellData) => void
+  export let onRightClick: (cell:CellData) => void
   const localClick = () => {
     onClick(data)
     data = data
+  }
+  const localRightClick = (evt: Event) => {
+    evt.preventDefault()
+    onRightClick(data)
   }
 
   $: text = CellHelper.getText(data)
@@ -14,6 +19,7 @@
 
 <td class="{`container number-${text}`}"
     on:click={localClick}
+    on:contextmenu={localRightClick}
 >
     {text}
     <div class="bubble" class:hidden={data.explored}>

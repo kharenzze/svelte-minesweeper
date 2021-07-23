@@ -14,6 +14,10 @@
     game.quickStart()
     game = game
   }
+  const onRightClick = (cell:CellData) => {
+    cell.flagged = !cell.flagged
+    game = game
+  }
 </script>
 
 <main>
@@ -22,7 +26,7 @@
             Hello {name}!
             <button class="start"
                     class:hidden={game.started}
-                    on:click={onClickStart}
+                    on:click={onClickStart      }
             >
                 Start
             </button>
@@ -36,6 +40,7 @@
                     {#each row as cellData}
                         <Cell data="{cellData}"
                               onClick="{onClick}"
+                              onRightClick="{onRightClick}"
                         />
                     {/each}
                 </tr>
