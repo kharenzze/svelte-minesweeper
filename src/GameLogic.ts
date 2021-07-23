@@ -3,6 +3,7 @@ import { minilodash as _ } from "./MiniLodash"
 
 export interface CellData {
   bomb: boolean,
+  explode: boolean,
   bombsAround: number,
   explored: boolean,
   flagged: boolean,
@@ -11,6 +12,7 @@ export interface CellData {
 
 const emptyCellData = (p: Point): CellData => ({
   bomb: false,
+  explode: false,
   bombsAround: 0,
   explored: false,
   flagged: false,
