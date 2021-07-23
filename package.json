@@ -1,11 +1,12 @@
 {
   "name": "svelte-minesweeper",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
+    "tag": "pushtag",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
