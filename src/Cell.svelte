@@ -15,11 +15,16 @@
   }
   const localRightClick = (evt: Event) => {
     evt.preventDefault()
-    onRightClick(data)
   }
 
   const localDoubleClick = () => {
     onDoubleClick(data)
+  }
+
+  const localMouseDown = (evt: MouseEvent) => {
+    if (evt.button === 2) {
+      onRightClick(data)
+    }
   }
 
   $: text = CellHelper.getText(data)
@@ -31,6 +36,7 @@
     on:click={localClick}
     on:dblclick={localDoubleClick}
     on:contextmenu={localRightClick}
+    on:mousedown={localMouseDown}
 >
     {text}
     <div class="bubble" class:hidden={data.explored}>

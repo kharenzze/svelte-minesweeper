@@ -6,6 +6,7 @@
 
   export let name: string
   let game = new Playground(Point(30, 16), 99)
+  let lastHighlight;
   const onClick = (cell: CellData) => {
     game.discover(cell)
     game = game
@@ -16,6 +17,7 @@
   }
   const onRightClick = (cell:CellData) => {
     if (cell.explored && cell.bombsAround) {
+      lastHighlight = cell
       game.highlightCellsAround(cell)
     } else {
       game.toggleFlag(cell)
@@ -26,7 +28,14 @@
     game.exploreAround(cell)
     game = game
   }
+  const mouseUp = (evt: MouseEvent) => {
+    if (evt.button === 2 && lastHighlight) {
+      game.removeHighlight(lastHighlight)
+      game = game
+    }
+  }
   $: face = game.gameOver ? '😭' : '😃'
+
 </script>
 
 <main>
@@ -41,7 +50,7 @@
         <span class="face" class:hidden={!game.started}>{face}</span>
     </div>
     <div class="app">
-        <table class="table">
+        <table class="table" on:mouseup={mouseUp}>
             <tbody>
             {#each game.matrix as row}
                 <tr>
