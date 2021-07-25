@@ -6,9 +6,12 @@
   export let onClick: (cell:CellData) => void
   export let onRightClick: (cell:CellData) => void
   export let onDoubleClick: (cell:CellData) => void
-  const localClick = () => {
-    onClick(data)
-    data = data
+  const localClick = (evt: MouseEvent) => {
+    if (evt.buttons === 2) {
+        onDoubleClick(data)
+    } else {
+        onClick(data)
+    }
   }
   const localRightClick = (evt: Event) => {
     evt.preventDefault()
