@@ -73,10 +73,6 @@
         font-weight: 100;
     }
 
-    h1 > span {
-        position: relative;
-    }
-
     button.start {
         font-size: medium;
         margin: 0 12px;
