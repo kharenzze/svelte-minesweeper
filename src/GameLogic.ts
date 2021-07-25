@@ -7,6 +7,7 @@ export interface CellData {
   bombsAround: number,
   explored: boolean,
   flagged: boolean,
+  highlight: boolean,
   p: Point,
 }
 
@@ -16,6 +17,7 @@ const emptyCellData = (p: Point): CellData => ({
   bombsAround: 0,
   explored: false,
   flagged: false,
+  highlight: false,
   p
 })
 
@@ -175,5 +177,21 @@ export class Playground {
         })
       }
     }
+  }
+
+  public highlightCellsAround = (cell: CellData) => {
+    this.getCellsAround(cell)
+      .forEach(c => {
+        if (!c.explored && !c.flagged) {
+          c.highlight = true
+        }
+      })
+  }
+
+  public removeHighlight = (cell: CellData) => {
+    this.getCellsAround(cell)
+      .forEach(c => {
+        c.highlight = false
+      })
   }
 }

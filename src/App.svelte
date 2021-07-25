@@ -15,8 +15,8 @@
     game = game
   }
   const onRightClick = (cell:CellData) => {
-    if (cell.explored) {
-      //highlight
+    if (cell.explored && cell.bombsAround) {
+      game.highlightCellsAround(cell)
     } else {
       game.toggleFlag(cell)
     }
