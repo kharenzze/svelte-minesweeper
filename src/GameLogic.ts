@@ -37,7 +37,7 @@ export const CellHelper = {
   }
 }
 
-export class Playgroung {
+export class Playground {
   dimensions: Point
   bombs: number
   matrix: Array<Array<CellData>>

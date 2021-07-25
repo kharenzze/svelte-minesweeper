@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Playgroung } from "./GameLogic"
+  import { Playground } from "./GameLogic"
   import type { CellData } from "./GameLogic"
   import Cell from './Cell.svelte'
   import { Point } from "./Point"
 
   export let name: string
-  let game = new Playgroung(Point(30, 16), 99)
+  let game = new Playground(Point(30, 16), 99)
   const onClick = (cell: CellData) => {
     game.discover(cell)
     game = game
