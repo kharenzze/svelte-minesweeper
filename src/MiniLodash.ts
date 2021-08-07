@@ -5,5 +5,5 @@ import sumBy from 'lodash/sumBy'
 export const minilodash = {
   range,
   random,
-  sumBy
+  sumBy,
 }

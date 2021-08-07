@@ -1,14 +1,14 @@
-import { Point, PointHelper } from "./Point"
-import { minilodash as _ } from "./MiniLodash"
+import { Point, PointHelper } from './Point'
+import { minilodash as _ } from './MiniLodash'
 
 export interface CellData {
-  bomb: boolean,
-  explode: boolean,
-  bombsAround: number,
-  explored: boolean,
-  flagged: boolean,
-  highlight: boolean,
-  p: Point,
+  bomb: boolean
+  explode: boolean
+  bombsAround: number
+  explored: boolean
+  flagged: boolean
+  highlight: boolean
+  p: Point
 }
 
 const emptyCellData = (p: Point): CellData => ({
@@ -18,7 +18,7 @@ const emptyCellData = (p: Point): CellData => ({
   explored: false,
   flagged: false,
   highlight: false,
-  p
+  p,
 })
 
 const isSafe = (c: CellData) => !c.bomb && !c.flagged
@@ -36,7 +36,7 @@ export const CellHelper = {
       return c.bombsAround + ''
     }
     return ''
-  }
+  },
 }
 
 export class Playground {
@@ -49,12 +49,12 @@ export class Playground {
 
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
-      throw new Error("Dimensions must be positive")
+      throw new Error('Dimensions must be positive')
     }
     if (nBombs < 0) {
-      throw new Error("Number of bombs must be positive")
-    } else if (nBombs >= (PointHelper.area(dimensions) / 3)) {
-      throw new Error("Too many bombs")
+      throw new Error('Number of bombs must be positive')
+    } else if (nBombs >= PointHelper.area(dimensions) / 3) {
+      throw new Error('Too many bombs')
     }
 
     this.dimensions = dimensions
@@ -68,17 +68,16 @@ export class Playground {
   }
 
   private buildMatrix() {
-    this.matrix = _.range(this.dimensions.y)
-      .map(i => _.range(this.dimensions.x)
-        .map(j => emptyCellData(Point(j, i)))
-      )
+    this.matrix = _.range(this.dimensions.y).map((i) =>
+      _.range(this.dimensions.x).map((j) => emptyCellData(Point(j, i)))
+    )
   }
 
   private intToPoint = (i: number): Point => {
     const local = i % this.nCells
     return {
       y: Math.floor(local / this.dimensions.x),
-      x: local % this.dimensions.x
+      x: local % this.dimensions.x,
     }
   }
 
@@ -101,12 +100,10 @@ export class Playground {
   private populateNumbers = () => {
     const cellAtPointIsBomb = (p: Point) => this.getCell(p).bomb
     const isValid = (p: Point) => this.inBounds(p) && cellAtPointIsBomb(p)
-    this.matrix.forEach(row => {
-      row.forEach(cell => {
+    this.matrix.forEach((row) => {
+      row.forEach((cell) => {
         if (!cell.bomb) {
-          cell.bombsAround = PointHelper.getPointsAround(cell.p)
-            .filter(isValid)
-            .length
+          cell.bombsAround = PointHelper.getPointsAround(cell.p).filter(isValid).length
         }
       })
     })
@@ -142,15 +139,14 @@ export class Playground {
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
-    this.getCellsAround(cell)
-      .forEach(c => {
-        if (!c.explored && isSafe(c)) {
-          c.explored = true
-          if (c.bombsAround === 0) {
-            this.autoDiscoverFrom(c)
-          }
+    this.getCellsAround(cell).forEach((c) => {
+      if (!c.explored && isSafe(c)) {
+        c.explored = true
+        if (c.bombsAround === 0) {
+          this.autoDiscoverFrom(c)
         }
-      })
+      }
+    })
   }
 
   private getCell = (p: Point) => this.matrix[p.y][p.x]
@@ -162,15 +158,14 @@ export class Playground {
   private getCellsAround = (cell: CellData) =>
     PointHelper.getPointsAround(cell.p)
       .filter(this.inBounds)
-      .map(p => this.getCell(p))
-
+      .map((p) => this.getCell(p))
 
   public exploreAround = (cell: CellData) => {
     if (cell.explored && cell.bombsAround) {
       const cells = this.getCellsAround(cell)
-      const flagsAround = _.sumBy(cells, c => c.flagged ? 1 : 0)
+      const flagsAround = _.sumBy(cells, (c) => (c.flagged ? 1 : 0))
       if (flagsAround === cell.bombsAround) {
-        cells.forEach(c => {
+        cells.forEach((c) => {
           if (!c.explored && !c.flagged) {
             this.discover(c)
           }
@@ -180,18 +175,16 @@ export class Playground {
   }
 
   public highlightCellsAround = (cell: CellData) => {
-    this.getCellsAround(cell)
-      .forEach(c => {
-        if (!c.explored && !c.flagged) {
-          c.highlight = true
-        }
-      })
+    this.getCellsAround(cell).forEach((c) => {
+      if (!c.explored && !c.flagged) {
+        c.highlight = true
+      }
+    })
   }
 
   public removeHighlight = (cell: CellData) => {
-    this.getCellsAround(cell)
-      .forEach(c => {
-        c.highlight = false
-      })
+    this.getCellsAround(cell).forEach((c) => {
+      c.highlight = false
+    })
   }
 }
