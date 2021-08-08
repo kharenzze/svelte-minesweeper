@@ -8,6 +8,7 @@ export interface CellData {
   explored: boolean
   flagged: boolean
   highlight: boolean
+  forceSafe: boolean
   p: Point
 }
 
@@ -18,6 +19,7 @@ const emptyCellData = (p: Point): CellData => ({
   explored: false,
   flagged: false,
   highlight: false,
+  forceSafe: false,
   p,
 })
 
