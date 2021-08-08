@@ -11,10 +11,6 @@
     game.discover(cell)
     game = game
   }
-  const onClickStart = () => {
-    game.quickStart()
-    game = game
-  }
   const onRightClick = (cell: CellData) => {
     if (cell.explored && cell.bombsAround) {
       lastHighlight = cell
@@ -40,9 +36,6 @@
 <main>
   <div class="row">
     <h1>Hello {name}!</h1>
-    <button class="start" class:hidden={game.started} on:click={onClickStart}>
-      Start
-    </button>
     <span class="face" class:hidden={!game.started}>{face}</span>
   </div>
   <div class="app">

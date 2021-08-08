@@ -131,21 +131,6 @@ export class Playground {
     }
   }
 
-  public quickStart = () => {
-    let count = _.random(this.nCells)
-    let finding = true
-    while (finding) {
-      const p = this.intToPoint(count)
-      const cell = this.getCell(p)
-      if (isSafe(cell) && cell.bombsAround === 0) {
-        this.discover(cell)
-        finding = false
-      } else {
-        count += 1
-      }
-    }
-  }
-
   private autoDiscoverFrom = (cell: CellData) => {
     this.getCellsAround(cell).forEach((c) => {
       if (!c.explored && isSafe(c)) {
