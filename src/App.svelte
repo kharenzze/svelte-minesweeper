@@ -67,11 +67,6 @@
     font-weight: 100;
   }
 
-  button.start {
-    font-size: medium;
-    margin: 0 12px;
-  }
-
   .app {
     display: flex;
     flex-direction: row;
