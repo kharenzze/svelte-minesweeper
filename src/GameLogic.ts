@@ -65,6 +65,9 @@ export class Playground {
     this.started = false
     this.gameOver = false
     this.buildMatrix()
+  }
+
+  private initGame = (cell: CellData) => {
     this.initBombs()
     this.populateNumbers()
   }
@@ -115,7 +118,10 @@ export class Playground {
     if (this.gameOver) {
       return
     }
-    this.started = true
+    if (!this.started) {
+      this.initGame(cell)
+      this.started = true
+    }
     cell.explored = true
     if (cell.bomb) {
       cell.explode = true
