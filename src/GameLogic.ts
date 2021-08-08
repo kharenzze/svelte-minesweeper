@@ -68,6 +68,8 @@ export class Playground {
   }
 
   private initGame = (cell: CellData) => {
+    cell.forceSafe = true
+    this.getCellsAround(cell).forEach((c) => (c.forceSafe = true))
     this.initBombs()
     this.populateNumbers()
   }
@@ -93,7 +95,7 @@ export class Playground {
       counter += _.random(97)
       const p = this.intToPoint(counter)
       const cell = this.matrix[p.y][p.x]
-      if (!cell.bomb) {
+      if (!cell.bomb && !cell.forceSafe) {
         cell.bomb = true
         pending -= 1
       }
