@@ -160,7 +160,9 @@ export class Playground {
   private getCell = (p: Point) => this.matrix[p.y][p.x]
 
   public toggleFlag = (cell: CellData) => {
-    cell.flagged = !cell.flagged
+    if (this.started) {
+      cell.flagged = !cell.flagged
+    }
   }
 
   private getCellsAround = (cell: CellData) =>
