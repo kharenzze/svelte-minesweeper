@@ -38,12 +38,16 @@
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
   $: hideFace = game.status === GameStatus.Created
   $: win = game.status === GameStatus.Win
+  $: progress = `${game.flagged}/${game.bombs}`
 </script>
 
 <main on:contextmenu={localRightClick}>
   <div class="row">
     <h1>Hello {name}!</h1>
-    <span class="face" class:hidden={hideFace}>{face}</span>
+    <div class:hidden={hideFace}>
+      <span class="face">{face}</span>
+      <span>{progress}</span>
+    </div>
   </div>
   <div class="app">
     <table class="table" on:mouseup={mouseUp}>
