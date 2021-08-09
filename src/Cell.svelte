@@ -11,9 +11,6 @@
       onClick(data)
     }
   }
-  const localRightClick = (evt: Event) => {
-    evt.preventDefault()
-  }
 
   const localDoubleClick = () => {
     onDoubleClick(data)
@@ -37,7 +34,6 @@
   class:highlight={data.highlight}
   on:click={localClick}
   on:dblclick={localDoubleClick}
-  on:contextmenu={localRightClick}
   on:mousedown={localMouseDown}
 >
   {text}

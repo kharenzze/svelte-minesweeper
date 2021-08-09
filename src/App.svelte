@@ -30,12 +30,17 @@
       game = game
     }
   }
+
+  const localRightClick = (evt: Event) => {
+    evt.preventDefault()
+  }
+
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
   $: hideFace = game.status === GameStatus.Created
   $: win = game.status === GameStatus.Win
 </script>
 
-<main>
+<main on:contextmenu={localRightClick}>
   <div class="row">
     <h1>Hello {name}!</h1>
     <span class="face" class:hidden={hideFace}>{face}</span>
