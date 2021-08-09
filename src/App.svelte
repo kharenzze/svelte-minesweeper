@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Playground } from './GameLogic'
+  import { Playground, GameStatus } from './GameLogic'
   import type { CellData } from './GameLogic'
   import Cell from './Cell.svelte'
   import { Point } from './Point'
@@ -30,13 +30,13 @@
       game = game
     }
   }
-  $: face = game.gameOver ? '😭' : '😃'
+  $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
 </script>
 
 <main>
   <div class="row">
     <h1>Hello {name}!</h1>
-    <span class="face" class:hidden={!game.started}>{face}</span>
+    <span class="face" class:hidden={game.status === GameStatus.Created}>{face}</span>
   </div>
   <div class="app">
     <table class="table" on:mouseup={mouseUp}>
