@@ -5,7 +5,6 @@
   import { Point } from './Point'
   import packageJson from '../package.json'
 
-  export let name: string
   let game = new Playground(Point(30, 16), 99)
   let version = `v${packageJson.version}`
   let lastHighlight
@@ -45,7 +44,7 @@
 
 <main on:contextmenu={localRightClick}>
   <div class="row">
-    <h1>Hello {name}!</h1>
+    <h1>MINESWEEPER!</h1>
     <div class:hidden={hideFace}>
       <span class="face">{face}</span>
       <span>{progress}</span>
