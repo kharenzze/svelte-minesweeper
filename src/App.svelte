@@ -3,9 +3,11 @@
   import type { CellData } from './GameLogic'
   import Cell from './Cell.svelte'
   import { Point } from './Point'
+  import packageJson from '../package.json'
 
   export let name: string
   let game = new Playground(Point(30, 16), 99)
+  let version = packageJson.version
   let lastHighlight
   const onClick = (cell: CellData) => {
     game.discover(cell)
@@ -65,6 +67,7 @@
       <span>WIN</span>
     </div>
   </div>
+  <span class="version">{version}</span>
 </main>
 
 <style>
@@ -123,5 +126,12 @@
   .face {
     font-size: 30px;
     margin: 0 12px;
+  }
+
+  .version {
+    font-size: smaller;
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 </style>
