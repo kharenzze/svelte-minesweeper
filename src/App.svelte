@@ -85,12 +85,15 @@
     position: absolute;
     inset: 0;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .win > span {
-    transform: rotate(30);
+    transform: rotate(-10deg);
     color: green;
-    font-size: 80px;
+    font-size: 290px;
   }
 
   .table {
