@@ -55,6 +55,7 @@ export class Playground {
   nCells: number
   status: GameStatus
   flagged: number
+  explored: number
 
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
@@ -70,6 +71,7 @@ export class Playground {
     this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
     this.flagged = 0
+    this.explored = 0
     this.status = GameStatus.Created
     this.buildMatrix()
   }
@@ -126,7 +128,7 @@ export class Playground {
   }
 
   public discover(cell: CellData) {
-    if (this.status === GameStatus.GameOver) {
+    if (this.status === GameStatus.GameOver || cell.explored) {
       return
     }
     if (this.status === GameStatus.Created) {
@@ -134,18 +136,21 @@ export class Playground {
       this.status = GameStatus.Started
     }
     cell.explored = true
+    this.explored += 1
     if (cell.bomb) {
       cell.explode = true
       this.status = GameStatus.GameOver
     } else if (isSafe(cell) && cell.bombsAround === 0) {
       this.autoDiscoverFrom(cell)
     }
+    this.checkWin()
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
     this.getCellsAround(cell).forEach((c) => {
       if (!c.explored && isSafe(c)) {
         c.explored = true
+        this.explored += 1
         if (c.bombsAround === 0) {
           this.autoDiscoverFrom(c)
         }
@@ -160,9 +165,7 @@ export class Playground {
       cell.flagged = !cell.flagged
     }
     this.flagged += cell.flagged ? 1 : -1
-    if (this.flagged === this.bombs) {
-      this.checkWin()
-    }
+    this.checkWin()
   }
 
   private getCellsAround = (cell: CellData) =>
