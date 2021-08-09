@@ -41,6 +41,13 @@ export const CellHelper = {
   },
 }
 
+enum GameStatus {
+  Created,
+  Started,
+  GameOver,
+  Win,
+}
+
 export class Playground {
   dimensions: Point
   bombs: number
