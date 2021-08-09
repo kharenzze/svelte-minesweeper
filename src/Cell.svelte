@@ -7,9 +7,7 @@
   export let onRightClick: (cell: CellData) => void
   export let onDoubleClick: (cell: CellData) => void
   const localClick = (evt: MouseEvent) => {
-    if (evt.buttons === 2) {
-      //onDoubleClick(data)
-    } else {
+    if (evt.buttons !== 2) {
       onClick(data)
     }
   }
