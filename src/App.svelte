@@ -31,12 +31,14 @@
     }
   }
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
+  $: hideFace = game.status === GameStatus.Created
+  $: win = game.status === GameStatus.Win
 </script>
 
 <main>
   <div class="row">
     <h1>Hello {name}!</h1>
-    <span class="face" class:hidden={game.status === GameStatus.Created}>{face}</span>
+    <span class="face" class:hidden={hideFace}>{face}</span>
   </div>
   <div class="app">
     <table class="table" on:mouseup={mouseUp}>
@@ -50,6 +52,9 @@
         {/each}
       </tbody>
     </table>
+    <div class="win" class:hidden={!win}>
+      <span>WIN</span>
+    </div>
   </div>
 </main>
 
@@ -73,6 +78,19 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+    position: relative;
+  }
+
+  .win {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .win > span {
+    transform: rotate(30);
+    color: green;
+    font-size: 80px;
   }
 
   .table {
