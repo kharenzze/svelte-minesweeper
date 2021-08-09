@@ -48,6 +48,7 @@ export class Playground {
   nCells: number
   started: boolean
   gameOver: boolean
+  flagged: number
 
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
@@ -63,6 +64,7 @@ export class Playground {
     this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
     this.started = false
+    this.flagged = 0
     this.gameOver = false
     this.buildMatrix()
   }
@@ -78,6 +80,10 @@ export class Playground {
     this.matrix = _.range(this.dimensions.y).map((i) =>
       _.range(this.dimensions.x).map((j) => emptyCellData(Point(j, i)))
     )
+  }
+
+  private checkWin = () => {
+
   }
 
   private intToPoint = (i: number): Point => {
@@ -149,6 +155,10 @@ export class Playground {
   public toggleFlag = (cell: CellData) => {
     if (this.started && !cell.explored) {
       cell.flagged = !cell.flagged
+    }
+    this.flagged += cell.flagged ? 1 : -1
+    if (this.flagged === this.bombs) {
+      this.checkWin()
     }
   }
 
