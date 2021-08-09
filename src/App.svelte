@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Playground } from './GameLogic'
+  import { Playground, GameStatus } from './GameLogic'
   import type { CellData } from './GameLogic'
   import Cell from './Cell.svelte'
   import { Point } from './Point'
@@ -9,10 +9,6 @@
   let lastHighlight
   const onClick = (cell: CellData) => {
     game.discover(cell)
-    game = game
-  }
-  const onClickStart = () => {
-    game.quickStart()
     game = game
   }
   const onRightClick = (cell: CellData) => {
@@ -34,16 +30,24 @@
       game = game
     }
   }
-  $: face = game.gameOver ? '😭' : '😃'
+
+  const localRightClick = (evt: Event) => {
+    evt.preventDefault()
+  }
+
+  $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
+  $: hideFace = game.status === GameStatus.Created
+  $: win = game.status === GameStatus.Win
+  $: progress = `${game.flagged}/${game.bombs}`
 </script>
 
-<main>
+<main on:contextmenu={localRightClick}>
   <div class="row">
     <h1>Hello {name}!</h1>
-    <button class="start" class:hidden={game.started} on:click={onClickStart}>
-      Start
-    </button>
-    <span class="face" class:hidden={!game.started}>{face}</span>
+    <div class:hidden={hideFace}>
+      <span class="face">{face}</span>
+      <span>{progress}</span>
+    </div>
   </div>
   <div class="app">
     <table class="table" on:mouseup={mouseUp}>
@@ -57,6 +61,9 @@
         {/each}
       </tbody>
     </table>
+    <div class="win" class:hidden={!win}>
+      <span>WIN</span>
+    </div>
   </div>
 </main>
 
@@ -74,17 +81,28 @@
     font-weight: 100;
   }
 
-  button.start {
-    font-size: medium;
-    margin: 0 12px;
-  }
-
   .app {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: center;
     align-items: center;
+    position: relative;
+  }
+
+  .win {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .win > span {
+    transform: rotate(-10deg);
+    color: green;
+    font-size: 290px;
   }
 
   .table {

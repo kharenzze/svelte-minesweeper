@@ -7,14 +7,9 @@
   export let onRightClick: (cell: CellData) => void
   export let onDoubleClick: (cell: CellData) => void
   const localClick = (evt: MouseEvent) => {
-    if (evt.buttons === 2) {
-      onDoubleClick(data)
-    } else {
+    if (evt.buttons !== 2) {
       onClick(data)
     }
-  }
-  const localRightClick = (evt: Event) => {
-    evt.preventDefault()
   }
 
   const localDoubleClick = () => {
@@ -24,6 +19,9 @@
   const localMouseDown = (evt: MouseEvent) => {
     if (evt.button === 2) {
       onRightClick(data)
+    }
+    if (evt.buttons === 3) {
+      onDoubleClick(data)
     }
   }
 
@@ -36,7 +34,6 @@
   class:highlight={data.highlight}
   on:click={localClick}
   on:dblclick={localDoubleClick}
-  on:contextmenu={localRightClick}
   on:mousedown={localMouseDown}
 >
   {text}

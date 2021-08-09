@@ -8,6 +8,7 @@ export interface CellData {
   explored: boolean
   flagged: boolean
   highlight: boolean
+  forceSafe: boolean
   p: Point
 }
 
@@ -18,6 +19,7 @@ const emptyCellData = (p: Point): CellData => ({
   explored: false,
   flagged: false,
   highlight: false,
+  forceSafe: false,
   p,
 })
 
@@ -39,13 +41,21 @@ export const CellHelper = {
   },
 }
 
+export enum GameStatus {
+  Created,
+  Started,
+  GameOver,
+  Win,
+}
+
 export class Playground {
   dimensions: Point
   bombs: number
   matrix: Array<Array<CellData>>
   nCells: number
-  started: boolean
-  gameOver: boolean
+  status: GameStatus
+  flagged: number
+  explored: number
 
   constructor(dimensions: Point, nBombs: number) {
     if (!PointHelper.isPositive(dimensions)) {
@@ -60,9 +70,15 @@ export class Playground {
     this.dimensions = dimensions
     this.nCells = PointHelper.area(this.dimensions)
     this.bombs = nBombs
-    this.started = false
-    this.gameOver = false
+    this.flagged = 0
+    this.explored = 0
+    this.status = GameStatus.Created
     this.buildMatrix()
+  }
+
+  private initGame = (cell: CellData) => {
+    cell.forceSafe = true
+    this.getCellsAround(cell).forEach((c) => (c.forceSafe = true))
     this.initBombs()
     this.populateNumbers()
   }
@@ -71,6 +87,16 @@ export class Playground {
     this.matrix = _.range(this.dimensions.y).map((i) =>
       _.range(this.dimensions.x).map((j) => emptyCellData(Point(j, i)))
     )
+  }
+
+  private checkWin = () => {
+    if (this.status !== GameStatus.Started) {
+      return
+    }
+    const count = this.flagged + this.explored
+    if (count === this.nCells) {
+      this.status = GameStatus.Win
+    }
   }
 
   private intToPoint = (i: number): Point => {
@@ -88,7 +114,7 @@ export class Playground {
       counter += _.random(97)
       const p = this.intToPoint(counter)
       const cell = this.matrix[p.y][p.x]
-      if (!cell.bomb) {
+      if (!cell.bomb && !cell.forceSafe) {
         cell.bomb = true
         pending -= 1
       }
@@ -110,38 +136,29 @@ export class Playground {
   }
 
   public discover(cell: CellData) {
-    if (this.gameOver) {
+    if (this.status === GameStatus.GameOver || cell.explored) {
       return
     }
-    this.started = true
+    if (this.status === GameStatus.Created) {
+      this.initGame(cell)
+      this.status = GameStatus.Started
+    }
     cell.explored = true
+    this.explored += 1
     if (cell.bomb) {
       cell.explode = true
-      this.gameOver = true
+      this.status = GameStatus.GameOver
     } else if (isSafe(cell) && cell.bombsAround === 0) {
       this.autoDiscoverFrom(cell)
     }
-  }
-
-  public quickStart = () => {
-    let count = _.random(this.nCells)
-    let finding = true
-    while (finding) {
-      const p = this.intToPoint(count)
-      const cell = this.getCell(p)
-      if (isSafe(cell) && cell.bombsAround === 0) {
-        this.discover(cell)
-        finding = false
-      } else {
-        count += 1
-      }
-    }
+    this.checkWin()
   }
 
   private autoDiscoverFrom = (cell: CellData) => {
     this.getCellsAround(cell).forEach((c) => {
       if (!c.explored && isSafe(c)) {
         c.explored = true
+        this.explored += 1
         if (c.bombsAround === 0) {
           this.autoDiscoverFrom(c)
         }
@@ -152,7 +169,14 @@ export class Playground {
   private getCell = (p: Point) => this.matrix[p.y][p.x]
 
   public toggleFlag = (cell: CellData) => {
-    cell.flagged = !cell.flagged
+    if (this.status === GameStatus.Started && !cell.explored) {
+      if (!cell.flagged && this.flagged === this.bombs) {
+        return // Too many bombs
+      }
+      cell.flagged = !cell.flagged
+      this.flagged += cell.flagged ? 1 : -1
+      this.checkWin()
+    }
   }
 
   private getCellsAround = (cell: CellData) =>
