@@ -7,7 +7,7 @@
 
   export let name: string
   let game = new Playground(Point(30, 16), 99)
-  let version = packageJson.version
+  let version = `v${packageJson.version}`
   let lastHighlight
   const onClick = (cell: CellData) => {
     game.discover(cell)
