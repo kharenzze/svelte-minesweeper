@@ -94,7 +94,7 @@ export class Playground {
       return
     }
     const count = this.flagged + this.explored
-    if (count === this.nCells) { 
+    if (count === this.nCells) {
       this.status = GameStatus.Win
     }
   }
@@ -170,10 +170,13 @@ export class Playground {
 
   public toggleFlag = (cell: CellData) => {
     if (this.status === GameStatus.Started && !cell.explored) {
+      if (!cell.flagged && this.flagged === this.bombs) {
+        return // Too many bombs
+      }
       cell.flagged = !cell.flagged
+      this.flagged += cell.flagged ? 1 : -1
+      this.checkWin()
     }
-    this.flagged += cell.flagged ? 1 : -1
-    this.checkWin()
   }
 
   private getCellsAround = (cell: CellData) =>
