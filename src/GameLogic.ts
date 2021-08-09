@@ -89,7 +89,15 @@ export class Playground {
     )
   }
 
-  private checkWin = () => {}
+  private checkWin = () => {
+    if (this.status !== GameStatus.Started) {
+      return
+    }
+    const count = this.flagged + this.explored
+    if (count === this.nCells) { 
+      this.status = GameStatus.Win
+    }
+  }
 
   private intToPoint = (i: number): Point => {
     const local = i % this.nCells
