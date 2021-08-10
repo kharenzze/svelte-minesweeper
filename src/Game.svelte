@@ -35,7 +35,7 @@
 
   console.log('a')
 
-  const { toggle } = getContext('theme') ?? {}
+  const { toggle } = getContext('theme')
   const onClickToggle = () => toggle()
 
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
