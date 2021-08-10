@@ -47,7 +47,6 @@
   <div class:hidden={hideFace}>
     <span class="face">{face}</span>
     <span>{progress}</span>
-    <button on:click={onClickToggle}>t</button>
   </div>
 </div>
 <div class="app">
@@ -67,6 +66,7 @@
   </div>
 </div>
 <span class="version">{version}</span>
+<button on:click={onClickToggle} class="toggle">Theme</button>
 
 <style>
   h1 {
@@ -125,5 +125,11 @@
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+
+  button.toggle {
+    position: absolute;
+    top: 16px;
+    left: 16px;
   }
 </style>
