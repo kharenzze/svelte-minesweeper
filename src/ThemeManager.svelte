@@ -7,7 +7,6 @@
   const toggle = () => {
     dark = !dark
   }
-  console.log('b')
 
   setContext('theme', {
     toggle,

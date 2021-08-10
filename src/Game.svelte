@@ -33,8 +33,6 @@
     }
   }
 
-  console.log('a')
-
   const { toggle } = getContext('theme')
   const onClickToggle = () => toggle()
 
