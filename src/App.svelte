@@ -2,6 +2,7 @@
   import { Playground, GameStatus } from './GameLogic'
   import type { CellData } from './GameLogic'
   import Cell from './Cell.svelte'
+  import ThemedMain from './ThemedMain.svelte'
   import { Point } from './Point'
   import packageJson from '../package.json'
 
@@ -32,17 +33,13 @@
     }
   }
 
-  const localRightClick = (evt: Event) => {
-    evt.preventDefault()
-  }
-
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
   $: hideFace = game.status === GameStatus.Created
   $: win = game.status === GameStatus.Win
   $: progress = `${game.flagged}/${game.bombs}`
 </script>
 
-<main on:contextmenu={localRightClick}>
+<ThemedMain>
   <div class="row">
     <h1>MINESWEEPER!</h1>
     <div class:hidden={hideFace}>
@@ -67,7 +64,7 @@
     </div>
   </div>
   <span class="version">{version}</span>
-</main>
+</ThemedMain>
 
 <style>
   main {
