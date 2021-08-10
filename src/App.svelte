@@ -4,6 +4,7 @@
   import Cell from './Cell.svelte'
   import ThemedMain from './ThemedMain.svelte'
   import { Point } from './Point'
+  import { getContext } from 'svelte'
   import packageJson from '../package.json'
 
   let game = new Playground(Point(30, 16), 99)
@@ -33,6 +34,11 @@
     }
   }
 
+  console.log('a');
+  
+  const { toggle } = getContext('theme') ?? {}
+  const onClickToggle = () => toggle()
+
   $: face = game.status === GameStatus.GameOver ? '😭' : '😃'
   $: hideFace = game.status === GameStatus.Created
   $: win = game.status === GameStatus.Win
@@ -45,6 +51,7 @@
     <div class:hidden={hideFace}>
       <span class="face">{face}</span>
       <span>{progress}</span>
+      <button on:click={onClickToggle}>t</button>
     </div>
   </div>
   <div class="app">
@@ -67,12 +74,6 @@
 </ThemedMain>
 
 <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
   h1 {
     color: #ff3e00;
     text-transform: uppercase;
