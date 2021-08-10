@@ -8,6 +8,10 @@
     window.document.body.classList.toggle('dark')
   }
 
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    toggle()
+  }
+
   setContext('theme', {
     toggle,
   })
@@ -28,7 +32,7 @@
   }
 
   :global(body.dark) {
-    --background-color: #232323;
+    --background-color: #202020;
     --neutral-text-color: white;
   }
 
