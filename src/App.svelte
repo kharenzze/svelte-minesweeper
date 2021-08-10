@@ -2,7 +2,7 @@
   import { Playground, GameStatus } from './GameLogic'
   import type { CellData } from './GameLogic'
   import Cell from './Cell.svelte'
-  import ThemedMain from './ThemedMain.svelte'
+  import ThemedMain from './ThemeManager.svelte'
   import { Point } from './Point'
   import { getContext } from 'svelte'
   import packageJson from '../package.json'
